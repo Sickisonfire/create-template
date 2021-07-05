@@ -1,14 +1,18 @@
-import inquirer, { QuestionCollection } from 'inquirer';
+#!/usr/bin/env node
+import inquirer, { QuestionCollection, ChoiceCollection } from 'inquirer';
+import isValid from 'is-valid-path';
 
 // import * as fs from 'fs';
 // import { dirname } from 'path';
+
+const choices: ChoiceCollection = ['React', 'Node', 'Vanilla'];
 
 const questions: QuestionCollection = [
   {
     type: 'list',
     name: 'template',
     message: 'Choose Template:',
-    choices: ['React', 'Node', 'Vanilla', 'Vue'],
+    choices: choices,
   },
   {
     type: 'input',
@@ -26,6 +30,12 @@ const questions: QuestionCollection = [
     type: 'input',
     name: 'directory',
     message: 'Enter directory:',
+    default: '.',
+    validate: input => {
+      console.log(isValid(input));
+      if (isValid(input)) {
+      }
+    },
   },
 ];
 
