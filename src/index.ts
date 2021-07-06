@@ -1,11 +1,22 @@
-#!/usr/bin/env node
-import inquirer, { QuestionCollection, ChoiceCollection } from 'inquirer';
+import inquirer, {
+  QuestionCollection,
+  ChoiceCollection,
+  Answers,
+} from 'inquirer';
 import isValid from 'is-valid-path';
+import fs from 'fs-extra';
+import { getTemplatesDirectoryPath } from './lib/utils/Utils';
+import { createProjectFromTemplate } from './createProjectFromTemplate';
 
-// import * as fs from 'fs';
-// import { dirname } from 'path';
+export interface TemplateAnswers extends Answers {
+  template: string;
+  projectName: string;
+  directoryPath: string;
+}
 
-const choices: ChoiceCollection = ['React', 'Node', 'Vanilla'];
+const templatesDir: string = getTemplatesDirectoryPath('templates');
+
+const choices: ChoiceCollection = fs.readdirSync(templatesDir);
 
 const questions: QuestionCollection = [
   {
@@ -16,7 +27,7 @@ const questions: QuestionCollection = [
   },
   {
     type: 'input',
-    name: 'project-name',
+    name: 'projectName',
     message: 'Enter Project name:',
     validate: input => {
       const pass: boolean = input.match(/^[a-z0-9-_]+$/i);
@@ -28,17 +39,22 @@ const questions: QuestionCollection = [
   },
   {
     type: 'input',
-    name: 'directory',
+    name: 'directoryPath',
     message: 'Enter directory:',
-    default: '.',
+    suffix: '(empty for current directory)',
     validate: input => {
-      console.log(isValid(input));
       if (isValid(input)) {
+        return true;
       }
+      return 'Please enter a valid path';
     },
   },
 ];
 
-inquirer.prompt(questions).then(as => {
-  console.log(JSON.stringify(as));
+inquirer.prompt(questions).then(answers => {
+  try {
+    createProjectFromTemplate(answers as TemplateAnswers, templatesDir);
+  } catch (err) {
+    console.log(err);
+  }
 });
