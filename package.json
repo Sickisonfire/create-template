@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node ./src/index.ts",
+    "run": "ts-node ./src/index.ts",
     "build": "tsc",
     "test": "jest"
   },
@@ -12,6 +12,7 @@
     "create-template": "./bin/create-template.js"
   },
   "devDependencies": {
+    "@types/fs-extra": "^9.0.11",
     "@types/inquirer": "^7.3.2",
     "@types/is-valid-path": "^0.1.0",
     "@types/jest": "^26.0.23",
@@ -28,6 +29,7 @@
     "typescript": "^4.3.5"
   },
   "dependencies": {
+    "fs-extra": "^10.0.0",
     "inquirer": "^8.1.1",
     "is-valid-path": "^0.1.1"
   }

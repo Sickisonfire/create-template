@@ -2,6 +2,8 @@
 
 CLI Tool for template creation
 
+**Note: not tested on windows.**
+
 ## install
 
 Git clone and cd into it
@@ -9,14 +11,12 @@ Git clone and cd into it
 #### yarn
 
 ```
-yarn
 yarn global add $PWD
 ```
 
 #### npm
 
 ```
-npm i
 npm i -g
 ```
 
@@ -30,8 +30,12 @@ create-template
 
 #### yarn
 
-`yarn global remove create-template`
+```
+yarn global remove create-template
+```
 
 #### npm
 
-`npm uninstall -g create-template`
+```
+npm uninstall -g create-template
+```
