@@ -7,7 +7,10 @@ exports.copyTemplateFiles = exports.getTemplatesDirectoryPath = void 0;
 var path_1 = __importDefault(require("path"));
 var fs_extra_1 = __importDefault(require("fs-extra"));
 function getTemplatesDirectoryPath(directoryName) {
-    return path_1.default.join(path_1.default.resolve(), directoryName);
+    var _a;
+    var dir = ((_a = require.main) === null || _a === void 0 ? void 0 : _a.path) || '';
+    var appDir = path_1.default.dirname(dir);
+    return path_1.default.join(appDir, directoryName);
 }
 exports.getTemplatesDirectoryPath = getTemplatesDirectoryPath;
 function copyTemplateFiles(templateDirecoryPath, ProjectPath) {
