@@ -2,7 +2,10 @@ import path from 'path';
 import fs from 'fs-extra';
 
 export function getTemplatesDirectoryPath(directoryName: string): string {
-  return path.join(path.resolve(), directoryName);
+  const dir = require.main?.path || '';
+  const appDir = path.dirname(dir);
+
+  return path.join(appDir, directoryName);
 }
 
 export function copyTemplateFiles(
